@@ -62,6 +62,7 @@ let rnd_and_prec = [ Prec Binary64; PRound ]
 let translate_op (op : op) : fpop =
   match op with
   | AddOp -> Plus
+  | SubOp -> Minus
   | MulOp -> Times
   | SqrtOp -> Sqrt
   | DivOp -> Divide

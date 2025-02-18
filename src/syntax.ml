@@ -176,7 +176,7 @@ let type_of_prim t =
   | PrimTString _ -> TyPrim PrimString
   | PrimTFun (_, ty) -> ty
 
-type op = AddOp | MulOp | SqrtOp | DivOp | GtOp | EqOp
+type op = AddOp | MulOp | SubOp | SqrtOp | DivOp | GtOp | EqOp
 
 type term =
   | TmVar of info * var_info

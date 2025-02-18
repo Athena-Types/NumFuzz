@@ -330,6 +330,7 @@ module TypeSub = struct
     | DivOp  -> return (TyLollipop((TyTensor(num, num)),num))
     | GtOp   -> 
         return (TyLollipop((TyTensor(TyBang(si_infty,num),TyBang(si_infty,num))),ty_bool))
+    | SubOp  -> return (TyLollipop((TyAmpersand(num, num)),num))
     | EqOp   -> 
         return (TyLollipop((TyTensor(TyBang(si_infty,num),TyBang(si_infty,num))),ty_bool))
 
