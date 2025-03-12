@@ -60,6 +60,7 @@ let reservedWords = [
   ("num", fun i -> Parser.NUM i);
   ("bool", fun i -> Parser.BOOL i);
   ("string", fun i -> Parser.STRING i);
+  ("factor", fun i -> Parser.FACTOR i);
   (* ("sens", fun i -> Parser.SENS i); *)
 ]
 

@@ -67,6 +67,7 @@ let from_args_to_type arg_list oty = match oty with
 %token <Support.FileInfo.info> EQUAL
 %token <Support.FileInfo.info> EQOP
 %token <Support.FileInfo.info> EOF
+%token <Support.FileInfo.info> FACTOR
 (* %token <Support.FileInfo.info> FALSE *)
 %token <Support.FileInfo.info> FUNCTION
 %token <Support.FileInfo.info> FUN
@@ -217,6 +218,18 @@ Term :
   (* extra *)
   | LPAREN Term RPAREN
     { $2 }
+  (* tuples can take in arbitrary terms *)
+  | LPAREN PairSeq RPAREN
+      { fun ctx -> $2 ctx }
+  | LPAREN PIPE Term COMMA Term PIPE RPAREN
+      { fun ctx -> TmAmpersand($1, $3 ctx, $5 ctx) }
+
+(* Sugar for n-ary tuples *)
+PairSeq:
+    Term COMMA Term
+      { fun ctx -> TmTens($2, $1 ctx, $3 ctx)  }
+  | Term COMMA PairSeq
+      { fun ctx -> TmTens($2, $1 ctx, $3 ctx)  }
 
 Argument :
     LPAREN ID COLON Type RPAREN
@@ -232,13 +245,6 @@ Arguments :
           let (l2, ctx'') = $2 ctx' in
           (l @ l2, ctx'')
       }
-
-(* Sugar for n-ary tuples *)
-PairSeq:
-    Val COMMA Val
-      { fun ctx -> TmTens($2, $1 ctx, $3 ctx)  }
-  | Val COMMA PairSeq
-      { fun ctx -> TmTens($2, $1 ctx, $3 ctx)  }
 
 Val:
     LPAREN RPAREN

@@ -25,4 +25,9 @@ Type check a benchmark in the examples directory with the following command.
 dune exec -- nfuzz examples/BENCHMARK.fz
 ```
 
-
+Changelog
+=====
+1. Allow resources to go unused (so functions can be dead, etc.).
+2. Add support for `sub : num x num -> num`. Intended to used with a paired NumFuzz semantics.
+3. Allow cartesian and tensor products to take in expressions (rather than values).
+4. Add a `factor : (M[q] 𝜎) x (M[q]𝜏) --o M[q] (𝜎 x 𝜏)` primitive for a tighter sensitivity and roundoff error analysis.
